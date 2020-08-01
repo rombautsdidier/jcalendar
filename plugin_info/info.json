@@ -1,0 +1,23 @@
+{
+	"id" : "jcalendar",
+	"name" : "Jewish Calendar",
+	"description" : "Plugin pour récupérer les informations du calendrier juif",
+	"licence" : "AGPL",
+	"author" : "rombautsdidier",
+	"require" : "3.0",
+	"category" : "organization",
+	"hasDependency" : false,
+	"hasOwnDeamon" : false,
+	"maxDependancyInstallTime" : 0,
+	"changelog" : "https://rombautsdidier.github.io/jcalendar/#language#/changelog",
+	"documentation" : "https://rombautsdidier.github.io/jcalendar/#language#/",
+	"link" : {
+		"forum":"",
+		"video" : ""
+	},
+	"language" : [
+		"fr_FR",
+		"en_US"
+	],
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile"]
+}
