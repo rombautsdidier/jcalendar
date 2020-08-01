@@ -90,16 +90,11 @@ class jcalendar extends eqLogic {
         $this->jcalendarCmdCreate('havdalah','Havdalah:','info','string','');
       } else { 
         $candleTimes = 'off';
-        $this->jcalendarCmdDelete('shabbat');
-        $this->jcalendarCmdDelete('candles');
-        $this->jcalendarCmdDelete('havdalah');
       }
 
       switch($this->getConfiguration('hebrewDates', '')) {
-        case "none":  $hebrewDates_string=''; 
-                      // Suppression de la commande liée à l'information
-                      $this->jcalendarCmdDelete('hebdate');
-                      break;
+        case "none":  $hebrewDates_string='';
+                      break; 
         case "some":  $hebrewDates_string='&D=on&d=off';
                       $cmd_list[]='hebdate';
                       // creation de la commande liée à l'information
@@ -119,8 +114,6 @@ class jcalendar extends eqLogic {
         $this->jcalendarCmdCreate('holiday major','Vacances Majeures:','info','string');
       } else { 
         $majorHoliday = 'off';
-        // Suppression de la commande liée à l'information
-        $this->jcalendarCmdDelete('holiday major');
       }
 
       if($this->getConfiguration('minorHoliday', '') == 1) { 
@@ -130,8 +123,6 @@ class jcalendar extends eqLogic {
         $this->jcalendarCmdCreate('holiday minor','Vacances Mineures:','info','string');
       } else { 
         $minorHoliday = 'off'; 
-        // Suppression de la commande liée à l'information
-        $this->jcalendarCmdDelete('holiday minor');
       }
       
       if($this->getConfiguration('modernHoliday', '') == 1) { 
@@ -141,8 +132,6 @@ class jcalendar extends eqLogic {
         $this->jcalendarCmdCreate('holiday modern','Vacances Modernes:','info','string');
       } else { 
         $modernHoliday = 'off'; 
-        // Suppression de la commande liée à l'information
-        $this->jcalendarCmdDelete('holiday modern');
       }
       
       if($this->getConfiguration('minorFests', '') == 1) { 
@@ -152,8 +141,6 @@ class jcalendar extends eqLogic {
         $this->jcalendarCmdCreate('holiday fast','Vacances fêtes:','info','string');
       } else { 
         $minorFests = 'off'; 
-        // Suppression de la commande liée à l'information
-        $this->jcalendarCmdDelete('holiday fast');
       }
 
       if($this->getConfiguration('specialShabbatot', '') == 1) { 
@@ -163,8 +150,6 @@ class jcalendar extends eqLogic {
         $this->jcalendarCmdCreate('holiday shabbat','Vacances shabbat:','info','string');
       } else { 
         $specialShabbatot = 'off'; 
-        // Suppression de la commande liée à l'information
-        $this->jcalendarCmdDelete('holiday shabbat');
       }
 
       if($this->getConfiguration('parashatOnSaturday', '') == 1) { 
@@ -174,8 +159,6 @@ class jcalendar extends eqLogic {
         $this->jcalendarCmdCreate('parashat','Parashat le samedi:','info','string');
       } else { 
         $parashatOnSaturday = 'off'; 
-        // Suppression de la commande liée à l'information
-        $this->jcalendarCmdDelete('parashat');
       }
 
       if($this->getConfiguration('roshChodesh', '') == 1) { 
@@ -185,8 +168,6 @@ class jcalendar extends eqLogic {
         $this->jcalendarCmdCreate('roshchodesh','roshchodesh:','info','string');
       } else {  
         $roshChodesh = 'off'; 
-        // Suppression de la commande liée à l'information
-        $this->jcalendarCmdDelete('roshchodesh');
       }
 
       if($this->getConfiguration('omerDays', '') == 1) { 
@@ -196,8 +177,6 @@ class jcalendar extends eqLogic {
         $this->jcalendarCmdCreate('omer','Jour Omer:','info','string');
       } else { 
         $omerDays = 'off'; 
-        // Suppression de la commande liée à l'information
-        $this->jcalendarCmdDelete('omer');
       }
 
       if($this->getConfiguration('holidaysAndTorah', '') == 1) { $holidaysAndTorah = 'on'; } else { $holidaysAndTorah = 'off'; }
@@ -332,10 +311,6 @@ class jcalendar extends eqLogic {
       }
     }
 
-    public function jcalendarCmdDelete() {
-
-    }
-
     /*     * *********************Méthodes d'instance************************* */
 
     public function preInsert() {
@@ -369,6 +344,58 @@ class jcalendar extends eqLogic {
           $eqlogicCmd->setSubType('other');
           $eqlogicCmd->save();
       }
+
+
+      $cmd_list=array();
+      if ($this->getConfiguration('candleTimes') == 0) {
+        $cmd_list[]='candles'; $cmd_list[]='havdalah'; $cmd_list[]='shabbat';
+      }
+
+      if ($this->getConfiguration('hebrewDates') == 'none') {
+        $cmd_list[]='hebdate';
+      }
+
+      if ($this->getConfiguration('majorHoliday') == 0) {
+        $cmd_list[]='holiday major';
+      }
+
+      if ($this->getConfiguration('minorHoliday') == 0) {
+        $cmd_list[]='holiday minor';
+      }
+
+      if ($this->getConfiguration('modernHoliday') == 0) {
+        $cmd_list[]='holiday modern';
+      }
+
+      if ($this->getConfiguration('minorFests') == 0) {
+        $cmd_list[]='holiday fast';
+      }
+
+      if ($this->getConfiguration('specialShabbatot') == 0) {
+        $cmd_list[]='holiday shabbat';
+      }
+
+      if ($this->getConfiguration('parashatOnSaturday') == 0) {
+        $cmd_list[]='parashat';
+      }
+
+      if ($this->getConfiguration('roshChodesh') == 0) {
+        $cmd_list[]='roshchodesh';
+      }
+
+      if ($this->getConfiguration('omerDays') == 0) {
+        $cmd_list[]='omer';
+      }
+
+      if (!empty($cmd_list)) {
+        foreach ($cmd_list as $the_cmd) {
+          log::add('jcalendar', 'debug', 'Suppression de la commande : ' . $the_cmd);
+          $cmd_to_remove = $this->getCmd(null, $the_cmd);
+          if (is_object($cmd_to_remove)) {
+            $cmd_to_remove->remove();
+          }
+        }
+      } 
       $this->getjCalendarData();        
     }
 
