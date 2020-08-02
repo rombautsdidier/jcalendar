@@ -81,17 +81,6 @@ class jcalendar extends eqLogic {
       // Récupérer le nom et la configuration de l'équipement
       $cmd_list=array();
 
-      if($this->getConfiguration('candleTimes', '') == 1) { 
-        $candleTimes = 'on'; 
-        $cmd_list[]='candles'; $cmd_list[]='havdalah';
-        // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('shabbat','Shabbat:','info','binary','0');
-        $this->jcalendarCmdCreate('candles','Allumage bougies:','info','string','');
-        $this->jcalendarCmdCreate('havdalah','Havdalah:','info','string','');
-      } else { 
-        $candleTimes = 'off';
-      }
-
       switch($this->getConfiguration('hebrewDates', '')) {
         case "none":  $hebrewDates_string='';
                       break; 
@@ -107,11 +96,22 @@ class jcalendar extends eqLogic {
                       break;
       }
 
+      if($this->getConfiguration('candleTimes', '') == 1) { 
+        $candleTimes = 'on'; 
+        $cmd_list[]='candles'; $cmd_list[]='havdalah';
+        // creation de la commande liée à l'information
+        $this->jcalendarCmdCreate('shabbat','Shabbat','info','binary','0');
+        $this->jcalendarCmdCreate('candles','Début de ce Shabbat:','info','string','');
+        $this->jcalendarCmdCreate('havdalah','Sortie de ce Shabbat:','info','string','');
+      } else { 
+        $candleTimes = 'off';
+      }
+
       if($this->getConfiguration('majorHoliday', '') == 1) { 
         $majorHoliday = 'on';
         $cmd_list[]='holiday major';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('holiday major','Vacances Majeures:','info','string');
+        $this->jcalendarCmdCreate('holiday major','Fête Majeure:','info','string');
       } else { 
         $majorHoliday = 'off';
       }
@@ -120,7 +120,7 @@ class jcalendar extends eqLogic {
         $minorHoliday = 'on'; 
         $cmd_list[]='holiday minor';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('holiday minor','Vacances Mineures:','info','string');
+        $this->jcalendarCmdCreate('holiday minor','Fête Mineure:','info','string');
       } else { 
         $minorHoliday = 'off'; 
       }
@@ -129,7 +129,7 @@ class jcalendar extends eqLogic {
         $modernHoliday = 'on'; 
         $cmd_list[]='holiday modern';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('holiday modern','Vacances Modernes:','info','string');
+        $this->jcalendarCmdCreate('holiday modern','Fête Moderne:','info','string');
       } else { 
         $modernHoliday = 'off'; 
       }
@@ -138,7 +138,7 @@ class jcalendar extends eqLogic {
         $minorFests = 'on'; 
         $cmd_list[]='holiday fast';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('holiday fast','Vacances fêtes:','info','string');
+        $this->jcalendarCmdCreate('holiday fast','Fête:','info','string');
       } else { 
         $minorFests = 'off'; 
       }
@@ -147,7 +147,7 @@ class jcalendar extends eqLogic {
         $specialShabbatot = 'on'; 
         $cmd_list[]='holiday shabbat';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('holiday shabbat','Vacances shabbat:','info','string');
+        $this->jcalendarCmdCreate('holiday shabbat','Evénement de ce Shabbat:','info','string');
       } else { 
         $specialShabbatot = 'off'; 
       }
@@ -156,7 +156,7 @@ class jcalendar extends eqLogic {
         $parashatOnSaturday = 'on'; 
         $cmd_list[]='parashat';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('parashat','Parashat le samedi:','info','string');
+        $this->jcalendarCmdCreate('parashat','Parashat de ce Shabbat:','info','string');
       } else { 
         $parashatOnSaturday = 'off'; 
       }
@@ -262,7 +262,7 @@ class jcalendar extends eqLogic {
     public function jcalendarCmdUpdate($title,$category,$subcategory,$title_orig,$hebrew,$date) {
       // Gestion de début et fin de la constrainte électrique
       if (($category == 'candles') || ($category == 'havdalah')) {
-        if ($date!='-') {
+        if ($date!='') {
           // Création des commandes concenant l'heure du début de la contrainte et de fin.
           $date=substr($date, 0, 16);
           $dateTime=explode('T',$date);
@@ -282,15 +282,19 @@ class jcalendar extends eqLogic {
 
           // Détermination du statut de la contrainte en fonction de l'heure actuelle et la commande
           log::add('jcalendar', 'debug', 'Comparaison date/heure pour shabbat: Maintenant=' . time() . ' et ' . strtotime($formattedDateTime)); 
-          if((time()) >= strtotime($formattedDateTime)) {
+          if(time() >= strtotime($formattedDateTime)) {
+            log::add('jcalendar', 'debug', 'Je passe ici pour la catégorie ' . $category);
             if ($category == 'candles') { $state=1; }
             if ($category == 'havdalah') { $state=0; }
+
+            log::add('jcalendar', 'debug', 'et je décide de la valeur ' . $state);
           }
 
           $cmd = $this->getCmd(null,'shabbat');
           $cmd->setEqLogic_id($this->getId());
           $cmd->save();
-          if ($state!="") {
+          log::add('jcalendar', 'debug', 'Valeur de etat avant test: ' . $state);
+          if (($state == 0) || ($state == 1)) {
             $this->checkAndUpdateCmd('shabbat',$state);
             log::add('jcalendar', 'debug', 'Création / Maj de la commande shabbat avec la valeur ' . $state);
           }

@@ -121,38 +121,6 @@ foreach (jeeObject::all() as $object) {
       </div>
   </div>
   <div class="form-group">
-      <label class="col-sm-3 control-label">{{Mode Chabbat et Yomtov}}</label>
-      <div class="col-sm-9">
-        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="candleTimes"/>{{Activer}}</label>
-      </div> 
-  </div>
-  <div class="form-group">
-      <label class="col-sm-3 control-label">{{Vacances majeures}}</label>
-      <div class="col-sm-9">
-        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="majorHoliday"/>{{Activer}}</label>
-      </div>
-  </div>
-
-  <div class="form-group">
-      <label class="col-sm-3 control-label">{{Vacances mineures}}</label>
-      <div class="col-sm-9">
-        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="minorHoliday"/>{{Activer}}</label>
-      </div>
-  </div>
-
-  <div class="form-group">
-      <label class="col-sm-3 control-label">{{Vacances modernes}}</label>
-      <div class="col-sm-9">
-        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="modernHoliday"/>{{Activer}}</label>
-      </div>   
-  </div>
-  <div class="form-group">
-      <label class="col-sm-3 control-label">{{Vacances Israël et lectures Torah}}</label>
-      <div class="col-sm-9">
-        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="holidaysAndTorah"/>{{Activer}}</label>
-      </div>
-  </div>
-  <div class="form-group">
       <label class="col-sm-3 control-label">{{Détails des dates hébraïques}}</label>
       <div class="col-sm-3">
           <select class="form-control eqLogicAttr configuration" data-l1key="configuration" data-l2key="hebrewDates">
@@ -163,29 +131,67 @@ foreach (jeeObject::all() as $object) {
       </div>
   </div>
   <div class="form-group">
+      <label class="col-sm-3 control-label">{{Mode Chabbat et Yomtov}}</label>
+      <div class="col-sm-9">
+        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="candleTimes"/>{{Activer}}</label>
+      </div> 
+  </div>
+  <div class="form-group">
+      <label class="col-sm-3 control-label">{{Evénément de ce Shabbat}}</label>
+      <div class="col-sm-9">
+        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="specialShabbatot"/>{{Activer}}</label>
+      </div> 
+  </div>
+  <div class="form-group">
+      <label class="col-sm-3 control-label">{{Parashat de ce Shabbat}}</label>
+      <div class="col-sm-9">
+        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="parashatOnSaturday"/>{{Activer}}</label>
+      </div> 
+  </div>
+  <div class="form-group">
+      <label class="col-sm-3 control-label">{{Fêtes majeures}}
+        <sup>
+            <i class="fa fa-question-circle tooltips" title="Attention, la désactivation de cette option entraine une non-récupération de l'événement de ce Shabbat même actif" style="font-size : 1em;color:grey;"></i>
+        </sup>
+      </label>
+      
+      <div class="col-sm-9">
+        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="majorHoliday"/>{{Activer}}</label>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <label class="col-sm-3 control-label">{{Fêtes mineures}}</label>
+      <div class="col-sm-9">
+        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="minorHoliday"/>{{Activer}}</label>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <label class="col-sm-3 control-label">{{Fêtes modernes}}</label>
+      <div class="col-sm-9">
+        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="modernHoliday"/>{{Activer}}</label>
+      </div>   
+  </div>
+  <div class="form-group">
+      <label class="col-sm-3 control-label">{{Fêtes Israël et lectures Torah}}</label>
+      <div class="col-sm-9">
+        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="holidaysAndTorah"/>{{Activer}}</label>
+      </div>
+  </div>
+  <div class="form-group">
       <label class="col-sm-3 control-label">{{Rosh Chodesh}}</label>
       <div class="col-sm-9">
         <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="roshChodesh"/>{{Activer}}</label>
       </div>
   </div>
   <div class="form-group">
-      <label class="col-sm-3 control-label">{{Fêtes mineures}}</label>
+      <label class="col-sm-3 control-label">{{Fêtes}}</label>
       <div class="col-sm-9">
         <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="minorFests"/>{{Activer}}</label>
       </div>     
   </div>
-  <div class="form-group">
-      <label class="col-sm-3 control-label">{{Shabbatot spéciaux}}</label>
-      <div class="col-sm-9">
-        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="specialShabbatot"/>{{Activer}}</label>
-      </div> 
-  </div>
-  <div class="form-group">
-      <label class="col-sm-3 control-label">{{Parashat ha-Shavuah le samedi}}</label>
-      <div class="col-sm-9">
-        <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="parashatOnSaturday"/>{{Activer}}</label>
-      </div> 
-  </div>
+
   <div class="form-group">
       <label class="col-sm-3 control-label">{{Jours du Omer}}</label>
       <div class="col-sm-9">
