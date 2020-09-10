@@ -194,9 +194,9 @@ class jcalendar extends eqLogic {
       // Construction de la requête http et récupération du fichier json
       $uri = $url.'/hebcal/?v=1&cfg=json&maj='.$majorHoliday.'&min='.$minorHoliday.'&mod='.$modernHoliday.'&nx='.$roshChodesh.'&year=now&month='.$month.'&ss='.$specialShabbatot.'&mf='.$minorFests.'&c='.$candleTimes.'&geo=pos&latitude='.$geoloc_lat.'&m='.$candleAfterSunrise.'&s='.$parashatOnSaturday.'&lg='.$language.'&longitude='.$geoloc_long.'&tzid='.date_default_timezone_get().'&b='.$candleBeforeSunset.$hebrewDates_string.'&o='.$omerDays;
 
-      log::add('jcalendar', 'debug', '------------------------------------------------');
-      log::add('jcalendar', 'debug', 'Appel : ' . $uri);
-      log::add('jcalendar', 'debug', '------------------------------------------------');
+      log::add('jcalendar', 'info', '------------------------------------------------');
+      log::add('jcalendar', 'info', 'Appel : ' . $uri);
+      log::add('jcalendar', 'info', '------------------------------------------------');
 
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL,$uri);
@@ -271,14 +271,7 @@ class jcalendar extends eqLogic {
           $formattedDateTime=$cmdDate . ' '.$cmdTime;
 
           log::add('jcalendar', 'debug', 'Date et heure nettoyée : ' . $formattedDateTime);
-
-          $cmd = $this->getCmd(null,$category);
-          $cmd->setEqLogic_id($this->getId());
-          $cmd->save();
-          $this->checkAndUpdateCmd($category,str_replace(':','',$cmdTime));
-          $cmdId = $cmd->getId();
-
-          log::add('jcalendar', 'debug', 'Création / Maj de la commande: ' . $category . ' avec la valeur ' . str_replace(':','',$cmdTime)); 
+          log::add('jcalendar', 'debug', 'Création / Maj de la commande: ' . $category . ' avec la valeur ' . str_replace(':','',$cmdTime));
 
           // Détermination du statut de la contrainte en fonction de l'heure actuelle et la commande
           log::add('jcalendar', 'debug', 'Comparaison date/heure pour shabbat: Maintenant=' . time() . ' et ' . strtotime($formattedDateTime)); 
@@ -298,8 +291,16 @@ class jcalendar extends eqLogic {
             $this->checkAndUpdateCmd('shabbat',$state);
             log::add('jcalendar', 'debug', 'Création / Maj de la commande shabbat avec la valeur ' . $state);
           }
-          $cmdId = $cmd->getId();  
-        }  
+          $cmdId = $cmd->getId();
+        } else {
+          $cmdTime='';
+            log::add('jcalendar', 'debug', 'On vide le temps précédent'); 
+        }
+        $cmd = $this->getCmd(null,$category);
+        $cmd->setEqLogic_id($this->getId());
+        $cmd->save();
+        $this->checkAndUpdateCmd($category,str_replace(':','',$cmdTime));
+        $cmdId = $cmd->getId();
       } else {
         // Gestion des autres catégories
         $cmd = $this->getCmd(null,$category.' '.$subcategory);
