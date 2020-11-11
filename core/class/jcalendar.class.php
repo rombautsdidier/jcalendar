@@ -87,12 +87,12 @@ class jcalendar extends eqLogic {
         case "some":  $hebrewDates_string='&D=on&d=off';
                       $cmd_list[]='hebdate';
                       // creation de la commande liée à l'information
-                      $this->jcalendarCmdCreate('hebdate','Date Hébraïque:','info','string');  
+                      $this->jcalendarCmdCreate('hebdate','Date Hébraïque:','info','string','');  
                       break;
         case "entire": $hebrewDates_string='&D=on&d=on';
                       $cmd_list[]='hebdate';
                       // creation de la commande liée à l'information
-                      $this->jcalendarCmdCreate('hebdate','Date Hébraïque:','info','string');  
+                      $this->jcalendarCmdCreate('hebdate','Date Hébraïque:','info','string','');  
                       break;
       }
 
@@ -111,7 +111,7 @@ class jcalendar extends eqLogic {
         $majorHoliday = 'on';
         $cmd_list[]='holiday major';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('holiday major','Fête Majeure:','info','string');
+        $this->jcalendarCmdCreate('holiday major','Fête Majeure:','info','string','');
       } else { 
         $majorHoliday = 'off';
       }
@@ -120,7 +120,7 @@ class jcalendar extends eqLogic {
         $minorHoliday = 'on'; 
         $cmd_list[]='holiday minor';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('holiday minor','Fête Mineure:','info','string');
+        $this->jcalendarCmdCreate('holiday minor','Fête Mineure:','info','string','');
       } else { 
         $minorHoliday = 'off'; 
       }
@@ -129,7 +129,7 @@ class jcalendar extends eqLogic {
         $modernHoliday = 'on'; 
         $cmd_list[]='holiday modern';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('holiday modern','Fête Moderne:','info','string');
+        $this->jcalendarCmdCreate('holiday modern','Fête Moderne:','info','string','');
       } else { 
         $modernHoliday = 'off'; 
       }
@@ -138,7 +138,7 @@ class jcalendar extends eqLogic {
         $minorFests = 'on'; 
         $cmd_list[]='holiday fast';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('holiday fast','Fête:','info','string');
+        $this->jcalendarCmdCreate('holiday fast','Fête:','info','string','');
       } else { 
         $minorFests = 'off'; 
       }
@@ -147,7 +147,7 @@ class jcalendar extends eqLogic {
         $specialShabbatot = 'on'; 
         $cmd_list[]='holiday shabbat';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('holiday shabbat','Evénement de ce Shabbat:','info','string');
+        $this->jcalendarCmdCreate('holiday shabbat','Evénement de ce Shabbat:','info','string','');
       } else { 
         $specialShabbatot = 'off'; 
       }
@@ -156,7 +156,7 @@ class jcalendar extends eqLogic {
         $parashatOnSaturday = 'on'; 
         $cmd_list[]='parashat';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('parashat','Parashat de ce Shabbat:','info','string');
+        $this->jcalendarCmdCreate('parashat','Parashat de ce Shabbat:','info','string','');
       } else { 
         $parashatOnSaturday = 'off'; 
       }
@@ -165,7 +165,7 @@ class jcalendar extends eqLogic {
         $roshChodesh = 'on'; 
         $cmd_list[]='roshchodesh';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('roshchodesh','roshchodesh:','info','string');
+        $this->jcalendarCmdCreate('roshchodesh','roshchodesh:','info','string','');
       } else {  
         $roshChodesh = 'off'; 
       }
@@ -174,7 +174,7 @@ class jcalendar extends eqLogic {
         $omerDays = 'on'; 
         $cmd_list[]='omer';
         // creation de la commande liée à l'information
-        $this->jcalendarCmdCreate('omer','Jour Omer:','info','string');
+        $this->jcalendarCmdCreate('omer','Jour Omer:','info','string','');
       } else { 
         $omerDays = 'off'; 
       }
