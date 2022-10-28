@@ -279,9 +279,12 @@ class jcalendar extends eqLogic {
             log::add('jcalendar', 'debug', 'Je passe ici pour la catégorie ' . $category);
             if ($category == 'candles') { $state=1; }
             if ($category == 'havdalah') { $state=0; }
-
-            log::add('jcalendar', 'debug', 'et je décide de la valeur ' . $state);
+		  } else {
+            if ($category == 'candles') { $state=1; }
+            if ($category == 'havdalah') { $state=0; }
           }
+		  
+          log::add('jcalendar', 'debug', 'et je décide de la valeur ' . $state);
 
           $cmd = $this->getCmd(null,'shabbat');
           $cmd->setEqLogic_id($this->getId());
