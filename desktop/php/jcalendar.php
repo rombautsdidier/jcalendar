@@ -98,7 +98,7 @@ foreach (jeeObject::all() as $object) {
   <div class="form-group">
       <label class="col-sm-3 control-label">{{Géolocalisation}}</label>
       <div class="col-sm-3">
-          <select class="form-control eqLogicAttr configuration" id="geoloc" data-l1key="configuration" data-l2key="geoloc">
+          <select class="form-control eqLogicAttr configuration" id="geoloc" data-l1key="configuration" data-l2key="geoloc" required>
               <?php
               $none = 0;
               if (class_exists('geotravCmd')) {

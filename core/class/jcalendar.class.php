@@ -280,8 +280,8 @@ class jcalendar extends eqLogic {
             if ($category == 'candles') { $state=1; }
             if ($category == 'havdalah') { $state=0; }
 		  } else {
-            if ($category == 'candles') { $state=1; }
-            if ($category == 'havdalah') { $state=0; }
+            if ($category == 'candles') { $state=0; }
+            if ($category == 'havdalah') { $state=1; }
           }
 		  
           log::add('jcalendar', 'debug', 'et je décide de la valeur ' . $state);
@@ -459,5 +459,3 @@ class jcalendarCmd extends cmd {
 
     /*     * **********************Getteur Setteur*************************** */
 }
-
-

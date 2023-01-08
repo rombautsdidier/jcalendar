@@ -23,7 +23,7 @@ Il faut renseigner plusieurs informations dans la configuration du plugin:
 Il est possible de créer plusieurs calendriers afin de répartir les informations reçues si on le veut.
 Il y a 13 options au total
 
-- La géolocalisation: Il faudra renseigner la géolocalisation dans Jeedom ou utiliser le plugin geotrav
+- La géolocalisation: Il faudra renseigner la géolocalisation dans Jeedom ou utiliser le plugin geotrav (obligatoire pour que les commandes soient créées)
 - La récupération ou non du mode chabbat et yomtov
 - La récupération ou non des vacances majeures
 - La récupération ou non des vacances mineures
